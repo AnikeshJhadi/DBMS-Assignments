@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{Distributed and Parallel Database Systems\\Update 2}
+\author{Anikesh Jhadi \\19111007 \\VI semester BME \\NIT Raipur}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Underlying Principles}
+A distributed database (DDB) is a collection of multiple, logically interrelated databases distributed over
+a computer network. A distributed database management system is then defined as the software system that permits the management of the distributed database and makes the distribution
+transparent to the users.These definitions point to two identifying architectural principles. The first is that the system consists of a (possibly empty) set of query sites and a non-empty set of data sites. The data sites have data storage capability while the query sites do not. The latter only
+run the user interface routines in order to facilitate the data access at data sites. The second is that each
+site (query or data) is assumed to logically consist of a single, independent computer. Therefore, each
+site has its own primary and secondary storage, runs its own operating system (which may be the same
+or different at different sites), and has the capability to execute applications on its own. The sites are
+interconnected by a computer network rather than a multiprocessor configuration. The important point here
+is the emphasis on loose interconnection between processors which have their own operating systems and
+operate independently.
+
+The database is physically distributed across the data sites by fragmenting and replicating the data. Given a relational database schema, fragmentation subdivides each relation into horizontal or vertical partitions. Horizontal fragmentation of a relation is accomplished by a selection operation
+which places each tuple of the relation in a different partition based on a fragmentation predicate (e.g., an
+Employee relation may be fragmented according to the location of the employees). Vertical fragmentation,
+divides a relation into a number of fragments by projecting over its attributes (e.g., the Employee relation
+may be fragmented such that the Emp number, Emp name and Address information is in one fragment,
+and Emp number, Salary and Manager information isin another fragment). Fragmentation is desirable
+because it enables the placement of data in close proximity to its place of use, thus potentially reducing
+transmission cost, and it reduces the size of relations that are involved in user queries.
+
+Based on the user access patterns, each of the fragments may also be replicated. This is preferable when
+the same data are accessed from applications that run at a number of sites. In this case, it may be more
+cost-effective to duplicate the data at a number of sites rather than continuously moving it between them.
+
+When the above architectural assumptions of a distributed DBMS are relaxed, one gets a parallel
+database system. The differences between a parallel DBMS and a distributed DBMS are somewhat unclear.
+In particular, shared-nothing parallel DBMS architectures, which we discuss below, are quite similar to
+the loosely interconnected distributed systems. Parallel DBMSs exploit recent multiprocessor computer
+architectures in order to build high-performance and high-availability database servers at a much lower price
+than equivalent mainframe computers.
+
+
+
+\end{document}
