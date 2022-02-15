@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{Distributed and Parallel Database Systems\\Update 4}
+\author{Anikesh Jhadi \\19111007 \\VI semester BME \\NIT Raipur}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Architectural Issues}
+There are many possible distribution alternatives. The currently popular client/server architecture where a number of client machines access a single database server, is the most straightforward one. In these systems, which can be called multiple-client/single-server, the database management
+problems are considerably simplified since the database is stored on a single server. 
+
+The pertinent issues relate to the management of client buffers and the caching of data and (possibly) locks. The data management is done centrally at the single server.
+A more distributed and more flexible architecture is the multiple-client/multiple server architecture
+where the database is distributed across multiple servers which have to communicate with each other in
+responding to user queries and in executing transactions. Each client machine has a “home” server to
+which it directs user requests. The communication of the servers among themselves is transparent to the
+users. Most current database management systems implement one or the other type of the client-server
+architectures.
+
+
+A truly distributed DBMS does not distinguish between client and server machines. Ideally, each site
+can perform the functionality of a client and a server. Such architectures, called peer-to-peer, require
+sophisticated protocols to manage the data distributed across multiple sites. The complexity of required
+software has delayed the offering of peer-to-peer distributed DBMS products.
+
+
+Parallel system architectures range between two extremes, the shared-nothing and the shared-memory
+architectures. A useful intermediate point is the shared-disk architecture.
+
+
+In the shared-nothing approach, each processor has exclusive access to itsmain memory and disk unit(s).
+Thus, each node can be viewed as a local site (with its own database and software) in a distributed database
+system. The difference between shared-nothing parallel DBMSs and distributed DBMSs is basically one
+of implementation platform, therefore most solutions designed for distributed databases may be re-used in
+parallel DBMSs. In addition, shared-nothing architecture has three main virtues: cost, extensibility, and
+availability. On the other hand, it suffers from higher complexity and (potential) load balancing problems.
+
+
+In the shared-memory approach, any processor has access to any memory module or disk unit through
+a fast interconnect (e.g., a high-speed bus or a cross-bar switch). Several new mainframe designs such
+as the IBM3090 or Bull’s DPS8, and symmetric multiprocessors such as Sequent and Encore, follow this
+approach. Shared-memory has two strong advantages: simplicity and load balancing. These are offset by
+three problems: cost, limited extensibility, and low availability.
+
+
+In the shared-disk approach, any processor has access to any disk unit through the interconnect, but
+exclusive (non-shared) access to its main memory. Each processor can then access database pages on the
+shared disk and copy them into its own cache. To avoid conflicting accesses to the same pages, global
+locking and protocols for the maintenance of cache coherency are needed. Shared-disk has a number of
+advantages: cost, extensibility, load balancing, availability, and easy migration from uniprocessor systems.
+On the other hand, it suffers from higher complexity and potential performance problems.
+
+
+
+
+
+\end{document}
