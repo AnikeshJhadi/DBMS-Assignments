@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{Distributed and Parallel Database Systems\\Update 3}
+\author{Anikesh Jhadi \\19111007 \\VI semester BME \\NIT Raipur}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+
+There are a number of identifying characteristics of the distributed and parallel DBMS technology.
+
+1. The distributed/parallel database is a database, not some “collection” of files that can be individually
+stored at each node of a computer network. This is the distinction between a DDB and a collection
+of files managed by a distributed file system. To form a DDB, distributed data should be logically
+related, where the relationship is defined according to some structural formalism (e.g., the relational
+model), and access to data should be at a high level via a common interface.
+
+2. The system has the full functionality of a DBMS. It is neither, as indicated above, a distributed file
+system, nor is it a transaction processing system. Transaction processing is only one of the functions
+provided by such a system, which also provides functions such as query processing, structured
+organization of data, and others that transaction processing systems do not necessarily deal with.
+
+3. The distribution (including fragmentation and replication) of data across multiple site/processors is
+not visible to the users. This is called transparency. The distributed/parallel database technology
+extends the concept of data independence, which is a central notion of database management, to
+environments where data are distributed and replicated over a number of machines connected by a
+network. This is provided by several forms of transparency: network (and, therefore, distribution)
+transparency, replication transparency, and fragmentation transparency. Transparent access means
+that users are provided with a single logical image of the database even though it may be physically
+distributed, enabling them to access the distributed database as if it were a centralized one. In its
+ideal form, full transparency would imply a query language interface to the distributed/parallel DBMS
+which is no different from that of a centralized DBMS.
+
+
+
+
+\end{document}
