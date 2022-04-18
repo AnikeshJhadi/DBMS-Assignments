@@ -1,0 +1,101 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{Distributed and Parallel Database Systems\\DBMS Term Paper 2022}
+\author{Anikesh Jhadi \\19111007 \\VI semester BME \\NIT Raipur}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+The maturation of database management system (DBMS) technology has coincided with significant developments in distributed computing and parallel processing technologies. The end result is the emergence of distributed database management systems and parallel database management systems. These systems have started to become the dominant data management tools for highly data-intensive applications.
+
+The integration of workstations in a distributed environment enables a more efficient function distribution in which application programs run on workstations, called application servers, while database functions are handled by dedicated computers, called database servers. This has led to the present trend in distributed system architecture, where sites are organized as specialized servers rather than as general-purpose
+computers.
+
+A parallel computer, or multiprocessor, is itself a distributed system made of a number of nodes (processors and memories) connected by a fast network within a cabinet. Distributed database technology can be naturally revised and extended to implement parallel database systems, i.e., database systems on parallel computers. Parallel database systems exploit the parallelism in data management in order to deliver high-performance and high-availability database servers at a much lower price than equivalent mainframe computers.
+
+In this paper, we present an overview of the distributed DBMS and parallel DBMS technologies,highlight the unique characteristics of each, and indicate the similarities between them. This discussion should help establish their unique and complementary roles in data management.
+
+\section{Underlying Principles}
+A distributed database (DDB) is a collection of multiple, logically interrelated databases distributed over a computer network. A distributed database management system (distributed DBMS) is then defined as the software system that permits the management of the distributed database and makes the distribution transparent to the users. These definitions point to two identifying architectural principles. The first is that the system consists of a (possibly empty) set of query sites and a non-empty set of data sites. The data sites have data storage capability while the query sites do not. The latter only run the user interface routines in order to facilitate the data access at data sites. The second is that each site (query or data) is assumed to logically consist of a single, independent computer. Therefore, each site has its own primary and secondary storage, runs its own operating system (which may be the same or different at different sites), and has the capability to execute applications on its own. The sites are
+interconnected by a computer network rather than multiprocessor configuration. The important point here is the emphasis on loose interconnection between processors which have their own operating systems and operate independently.
+
+A parallel DBMS can be defined as a DBMS implemented on a multiprocessor computer. This includes many alternatives ranging from the straightforward porting of an existing DBMS, which may require only rewriting the operating system interface routines, to a sophisticated combination of parallel processing and database system functions into a new hardware/software architecture. As always, we have the traditional trade-off between portability (to several platforms) and efficiency. The sophisticated approach is better able to fully exploit the opportunities offered by a multiprocessor at the expense of portability.
+
+There are a number of identifying characteristics of the distributed and parallel DBMS technology.
+
+1. The distributed/parallel database is a database, not some “collection” of files that can be individually stored at each node of a computer network. This is the distinction between a DDB and a collection of files managed by a distributed file system. To form a DDB, distributed data should be logically related, where the relationship is defined according to some structural formalism (e.g., the relational model), and access to data should be at a high level via a common interface.
+
+2. The system has the full functionality of a DBMS. It is neither, as indicated above, a distributed file system, nor is it a transaction processing system. Transaction processing is only one of the functions provided by such a system, which also provides functions such as query processing, structured organization of data, and others that transaction processing systems do not necessarily deal with.
+
+3. The distribution (including fragmentation and replication) of data across multiple site/processors is not visible to the users. This is called transparency. The distributed/parallel database technology extends the concept of data independence, which is a central notion of database management, to
+environments where data are distributed and replicated over a number of machines connected by a network. This is provided by several forms of transparency: network (and, therefore, distribution) transparency, replication transparency, and fragmentation transparency. Transparent access means that users are provided with a single logical image of the database even though it may be physically distributed,enabling them to access the distributed database as if it were a centralized one. In its ideal form, full transparency would imply a query language interface to the distributed/parallel DBMS which is no different from that of a centralized DBMS.
+
+\section{Architectural Issues}
+There are many possible distribution alternatives. The currently popular client/server architecture, where a number of client machines access a single database server, is the most straight forward one. In these systems, which can be called multiple-client/single-server, the database management
+problems are considerably simplified since the database is stored on a single server. The pertinent issues relate to the management of client buffers and the caching of data and (possibly) locks. The data management is done centrally at the single server.
+
+A more distributed and more flexible architecture is the multiple-client/multiple server architecture
+where the database is distributed across multiple servers which have to communicate with each other in responding to user queries and in executing transactions. Each client machine has a “home” server to which it directs user requests. The communication of the servers among themselves is transparent to the users. Most current database management systems implement one or the other type of the client-server architectures.
+
+A truly distributed DBMS does not distinguish between client and server machines. Ideally, each site can perform the functionality of a client and a server. Such architectures, called peer-to-peer, require sophisticated protocols to manage the data distributed across multiple sites. The complexity of required software has delayed the offering of peer-to-peer distributed DBMS products.
+
+Parallel system architectures range between two extremes, the shared-nothing and the shared-memory architectures. A useful intermediate point is the shared-disk architecture.
+
+In the shared-nothing approach, each processor has exclusive access to its main memory and disk unit(s).Thus, each node can be viewed as a local site (with its own database and software) in a distributed database system. The difference between shared-nothing parallel DBMSs and distributed DBMSs is basically one of implementation platform, therefore most solutions designed for distributed databases may be re-used in parallel DBMSs. In addition, shared-nothing architecture has three main virtues: cost, extensibility, and availability. On the other hand, it suffers from higher complexity and (potential) load balancing problems.
+
+In the shared-memory approach, any processor has access to any memory module or disk unit through a fast interconnect (e.g., a high-speed bus or a cross-bar switch). Several new mainframe designs such as the IBM3090 or Bull’s DPS8, and symmetric multiprocessors such as Sequent and Encore, follow this approach.Shared-memory has two strong advantages: simplicity and load balancing. These are offset by three problems: cost, limited extensibility, and low availability.
+
+\subsection{Querry Processing and Optimization}
+Query processing is the process by which a declarative query is translated into low-level data manipulation operations. SQL is the standard query language that is supported in current DBMSs. Query optimization refers to the process by which the “best” execution strategy for a given query is found from among a set of alternatives.
+
+\subsection{Concurrency Control}
+
+Whenever multiple users access (read and write) a shared database, these accesses need to be synchronized to ensure database consistency. The synchronization is achieved by means of concurrency control algorithms which enforce a correctness criterion such as serializability. User accesses are encapsulated as transactions, whose operations at the lowest level are a set of read and write operations to the database.Concurrency control algorithms enforce the isolation property of transaction execution, which states that the effects of one transaction on the database are isolated from other transactions until the first completes its execution.
+
+\subsection{Reliability Protocols}
+Distributed DBMSs are potentially more reliable because there are multiples of each system component, which eliminates single points of failure. This requires careful system design and the implementation of a number of protocols to deal with system failures.In a distributed DBMS, four types of failures are possible: transaction failures, site (system) failures,
+media (disk) failures and communication line failures.
+
+\subsection{Replication Protocols}
+In replicated distributed databases, each logical data item has a number of physical instances. For example, the salary of an employee (logical data item) may be stored at three sites (physical copies). The issue in this type of a database system is to maintain some notion of consistency among the copies.The most discussed consistency criterion is one copy equivalence, which asserts that the values of all copies of a logical data item should be identical when the transaction that updates it terminates.
+
+\section{Research Issues}
+Distributed and parallel DBMS technologies have matured to the point where fairly sophisticated and reliable commercial systems are now available. As expected, there are a number of issues that have yet to be satisfactorily resolved. In this section we provide an overview of some of the more important research issues.
+
+\subsection{Data Placement}
+In a parallel database system, proper data placement is essential for load balancing. Ideally, interference between concurrent parallel operations can be avoided by having each operation work on an independent dataset. These independent datasets can be obtained by the declustering (horizontal partitioning) of the relations based on a function (hash function or range index) applied to some placement attribute(s), and allocating each partition to a different disk. As with horizontal fragmentation in distributed databases,declustering is useful to obtain inter-query parallelism, by having independent queries working on different partitions; and intra-query-parallelism, by having a query’s operations working on different partitions.
+
+\subsection{Network Scaling Problems}
+The database community does not have a full understanding of the performance implications of all the design alternatives that accompany the development of distributed DBMSs. Specifically, questions have been raised about the scalability of some protocols and algorithms as the systems become geographically distributed or as the number of system components increase.Of specific concern is the suitability of the distributed transaction processing mechanisms (i.e., the two phase locking, and, particularly, two-phase commit protocols) in wide area network-based distributed database systems. As mentioned before, there is a significant overhead associated with these protocols, and implementing them over a slow wide area network may be difficult.
+
+\subsection{Distributed and Parallel Query Processing}
+Global query optimization generates an optimal execution plan for the input fragment query by making decisions regarding operation ordering, data movement between sites and the choice of both distributed and local algorithms for database operations. There are a number of problems related to this step. They have to do with the restrictions imposed on the cost model, the focus on a subset of the query language, the trade-off between optimization cost and execution cost, and the optimization/reoptimization interval.global query optimization generates an optimal execution plan for the input fragment query by making decisions regarding operation ordering, data movement between sites and the choice of both distributed and local algorithms for database operations. There are a number of problems related to this step. They have to do with the restrictions imposed on the cost model, the focus on a subset of the query language, the trade-off between optimization cost and execution cost, and the optimization/reoptimization interval.
+
+\subsection{Distributed Transaction Processing}
+Despite the research done to date, there are still topics worthy of investigation in the area of distributed
+transaction processing. We have already discussed the scaling problems of transaction management algorithms. Additionally, replica control protocols, more sophisticated transaction models, and non-serializable correctness criteria require further attention. The field of data replication needs further experimentation;research is required on replication methods for computation and communication; and more work is necessary to enable the systematic exploitation of application-specific properties. Experimentation is required to evaluate the claims that are made by algorithm and system designers, and we lack a consistent framework for comparing competing techniques.
+
+\section{Summary}
+Distributed and parallel DBMSs have become a reality in the last few years. They provide the functionality of centralized DBMSs, but in an environment where data is distributed over the sites of a computer network or the nodes of a multiprocessor system. Distributed databases have enabled the natural growth and expansion of databases by the simple addition of new machines. The price-performance characteristics of these systems are favorable in part due to the advances in computer network technology. Parallel DBMSs are perhaps the only realistic approach to meet the performance requirements of a variety of important applications which place significant throughput demands on the DBMS. In order to meet these requirements, distributed and
+parallel DBMSs need to be designed with special consideration for the protocols and strategies. In this article, we provide an overview of these protocols and strategies.
+
+There are a number of related issues that we did not cover. Two important topics that we omitted are multidatabase systems and distributed object-oriented databases. Most information systems evolve independent of other systems, with their own DBMS implementations. Later requirements to “integrate”
+these autonomous and possibly heterogeneous systems pose significant difficulties. Systems which provide
+access to independently designed and implemented, and possibly heterogeneous, databases are called
+multidatabase systems.
+
+The penetration of database management technology into areas (e.g., engineering databases, multimedia systems, geographic information systems, image databases) which relational database systems were not designed to serve has given rise to a search for new system models and architectures. A primary candidate for meeting the requirements of these systems is the object-oriented DBMS.The distribution of object-oriented DBMSs gives rise to a number of issues generally categorized as distributed object management. We have ignored both multidatabase system and distributed object management issues in this paper.
+
+\section{References}
+1.[Bell and Grimson, 1992] D. Bell and J. Grimson. Distributed Database Systems, Reading, MA: Addison Wesley, 1993.
+
+2.Distributed and Parallel Database Systems M. Tamer Ozsu ¨
+,Department of Computing Science,University of Alberta,
+Edmonton, Canada T6G 2H1.
+
+\end{document}
